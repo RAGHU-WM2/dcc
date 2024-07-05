@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mappedin Web SDK v5 Building and Level Selector</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <style>
+      .fullscreen-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 15%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+
+      .fullscreen-btn img {
+        width: 25px;
+        height: 25px;
+      }
+
+      .bottom-left-img {
+        position: fixed;
+        bottom: 0px;
+        left: 50px;
+        width: 110px;
+        height: 90px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="container">
+        <!-- Search and Top Location Header -->
+        <div class="search-container">
+          <input
+            type="text"
+            id="locationsearch"
+            placeholder="Search the office ..."
+          />
+          <img src="./src/ASSETS/list.png" alt="" width="23" id="toggleicon" />
+        </div>
+        <div class="toplocationcontainer">
+          <!-- <h6 class="toplocationheader">Top Locations</h6> -->
+        </div>
+
+        <!-- Toggle Icon -->
+
+        <!-- Categories Container (initially hidden) -->
+        <div class="categoriescontainer hidden">
+          <h6>Categories</h6>
+          <div class="categorylist">
+            <div class="sectionwisecategory">
+              <img
+                src="./src/ASSETS/desktop-svgrepo-com.svg"
+                alt=""
+                width="20"
+              />
+              <h6>Desk</h6>
+            </div>
+            <div class="sectionwisecategory">
+              <img src="./src/ASSETS/meeting.png" alt="" width="20" />
+              <h6>Meeting Room</h6>
+            </div>
+            <div class="sectionwisecategory">
+              <img
+                src="./src/ASSETS/sofa-with-buttons-svgrepo-com.svg"
+                alt=""
+                width="20"
+              />
+              <h6>Other Spaces</h6>
+            </div>
+            <div class="sectionwisecategory">
+              <img src="./src/ASSETS/female.png" alt="" width="20" />
+              <h6>Washrooms</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="selectedplacecontainer" id="selectedPlaceContainer">
+          <!-- <Button id="directionbtn"><b>Directions</b></Button> -->
+        </div>
+
+        <div class="directioncard">
+          <div class="directions top"><h4>Directions</h4></div>
+          .
+          
+        </div>
+
+        <div id="directory"></div>
+        <div id="selectorDiv1"></div>
+      </div>
+    </div>
+    <div id="selectorDiv2"></div>
+    <!-- Bottom Left Image -->
+    <img
+      src="./src/ASSETS/wmtwo_logo.svg"
+      alt="Bottom Left Icon"
+      class="bottom-left-img"
+    />
+    <!-- Fullscreen Button -->
+    <button class="fullscreen-btn" id="fullscreenBtn">
+      <img src="./src/ASSETS/fullscreen-r8if0idY.png" alt="Fullscreen Icon" />
+    </button>
+
+    <script type="module" src="./src/main.ts"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleIcon = document.getElementById("toggleicon");
+        const categoriesContainer = document.querySelector(
+          ".categoriescontainer"
+        );
+        const topLocationContainer = document.querySelector(
+          ".toplocationcontainer"
+        );
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        const selectedPlaceContainer = document.getElementById(
+          "selectedPlaceContainer"
+        );
+
+        toggleIcon.addEventListener("click", function () {
+          categoriesContainer.classList.toggle("hidden");
+          topLocationContainer.classList.toggle("hidden");
+
+          const maxHeight = categoriesContainer.classList.contains("hidden")
+            ? 1
+            : categoriesContainer.scrollHeight + "px";
+          categoriesContainer.style.maxHeight = maxHeight;
+          topLocationContainer.style.maxHeight = maxHeight;
+        });
+
+        fullscreenBtn.addEventListener("click", function () {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+          } else {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            }
+          }
+        });
+
+        // Function to update selected place details
+        function updateSelectedPlaceDetails(details) {
+          selectedPlaceContainer.innerHTML = `
+            <h3>Selected Place Details</h3>
+            <p><strong>ID:</strong> ${details.id}</p>
+            <p><strong>Name:</strong> ${details.name}</p>
+            <p><strong>Amenity:</strong> ${details.amenity}</p>
+            <p><strong>Type:</strong> ${details.type}</p>
+            <p><strong>Description:</strong> ${details.description}</p>
+            <p><strong>Floor Name:</strong> ${details.floorName}</p>
+          `;
+        }
+
+        // Example click event handler (replace with your specific logic)
+        // Replace this with your actual mapView.on(E_SDK_EVENT.CLICK, ...) logic
+        mapView.on(E_SDK_EVENT.CLICK, ({ polygons }) => {
+          if (polygons.length > 0) {
+            const clickedPolygon = polygons[0];
+            mapView.setPolygonColor(clickedPolygon, "#2266FF");
+
+            // Access location details if available
+            if (
+              clickedPolygon.locations &&
+              clickedPolygon.locations.length > 0
+            ) {
+              const location = clickedPolygon.locations[0]; // Assuming first location
+              const floorName = clickedPolygon.map.name; // Assuming map object contains the floor name
+
+              const polygonDetails = {
+                id: clickedPolygon.id,
+                names: location.name, // Access location name
+                amenity: location.amenity, // Access location amenity
+                type: clickedPolygon.type,
+                description: clickedPolygon.description,
+                floorName: floorName, // Include floor name
+              };
+
+              // Update selected place container with details
+              updateSelectedPlaceDetails(polygonDetails);
+            } else {
+              console.log("No location details found.");
+            }
+          } else {
+            mapView.clearAllPolygonColors();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

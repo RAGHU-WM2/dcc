@@ -1,0 +1,208 @@
+/* * {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%; */
+/* } */
+/* #app {
+  height: 100%;
+  width: 100%;
+  position: relative;
+} */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+#app {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+#search {
+  width: 100%;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+#locationsearch {
+  width: 80%;
+  max-width: 30rem;
+  padding: 1rem;
+  margin: 0 auto;
+  border-radius: 1cm;
+  border-style: none;
+  background-color: #dbdbdb;
+  margin-left: 0.4cm;
+  margin-top: 20px;
+}
+#directory {
+  columns: 3;
+  margin: 0;
+  padding: 0.5rem;
+  list-style-type: none;
+}
+#directory li {
+  margin: 0.2rem 0;
+  display: inline-block;
+  width: 100%;
+}
+
+#container {
+  background-color: rgb(255, 255, 255);
+  height: max-content;
+  width: 10cm;
+  border-radius: 20px;
+  position: absolute;
+  display: flex;
+  margin-top: 1cm;
+  margin-left: 1cm;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 10;
+}
+#selectorDiv1 {
+  display: none;
+}
+
+.toplocationheader {
+  font-family: "poppins", sans-serif;
+  font-weight: 400;
+
+  font-size: 1rem;
+  position: relative;
+  left: 0.6cm;
+  top: 0.2cm;
+}
+#locationsearch::placeholder {
+  /* Your styles here */
+  color: #999; /* Example color */
+  font-size: 1rem;
+  position: relative;
+  left: 1.2cm;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+
+#toggleicon {
+  position: relative;
+  right: 1.2cm;
+  top: 7px;
+  color: rgb(0, 132, 70) !important;
+}
+
+.categoriescontainer {
+  font-family: "Lato", sans-serif;
+  font-size: 1.6rem;
+  /* font-weight: 400; */
+  position: relative;
+  left: 0.6cm;
+  gap: 1cm;
+  /* display: none; */
+}
+
+.categorylist > h6 {
+  font-weight: 400;
+  display: flex;
+
+  padding: 1cm 0cm;
+}
+.sectionwisecategory {
+  display: flex;
+  padding: 0.5cm 0cm;
+  color: #6c6c6c;
+
+  gap: 0.4cm;
+}
+.hidden {
+  display: none;
+  transition: display 0.3s ease;
+}
+.categoriescontainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.custom-select {
+  padding: 0.2cm 1cm;
+  position: relative;
+  right: 2cm;
+  font-family: "Poppins", sans-serif;
+  border-radius: 0.2cm;
+
+  border: 1px solid rgb(232, 224, 224);
+}
+#selectedPlaceContainer{
+  display: flex;
+  font-family: "Lato";
+  position: relative;
+  left: 0.6cm;
+  top: 5px;
+}
+
+.detail-name {
+  /* Your styles for h2.detail-name */
+}
+
+.detail-floor {
+  color: #4d4d4b;
+  padding: 0.1cm 0.1cm;
+  width: max-content;
+  border-radius: 4px;}
+
+.detail-amenity {
+  background-color: #ebeae7;
+  padding: 0.1cm 0.1cm;
+  width: max-content;
+  border-radius: 4px;
+  font-size: 13px;
+
+  
+}
+
+.detail-type {
+  background-color: #ebeae7;
+  padding: 0.1cm 0.1cm;
+  width: max-content;
+  border-radius: 4px;
+  position: relative;
+  left: 4cm;
+  top: -0.6cm;
+  font-size: 13px;
+  /* color: #707174; */
+}
+.detail-amenity,
+.detail-type {
+  display: flex;
+  /* Add more CSS properties as needed */
+}
+
+#directionbtn{
+  background-color: #2266FF;
+  width: 114%;
+  color: white;
+  font-family: "lato";
+  border-style: none;
+  border-radius: 7px;
+  padding: 0.4cm 3cm;
+  text-align: center;
+}
+#directionbtn:hover{
+  background-color: #1d53da;
+
+}
+
+.directioncard{
+  height: 10cm;
+  font-family: Lato;
+  background-color: rgb(221, 218, 218);
+}
